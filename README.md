@@ -111,6 +111,7 @@ $data['my_form_html'] = $this->formbuilder->build_form();
 ###Putting It Together
 
 __Controller__
+
 Here is a quick example of what you might place in your controller. This would generate a form, fill it with the values from the record in your database with `id=23`, exclude system generated inputs, and hide the `id` input
 
 ```php
