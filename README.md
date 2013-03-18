@@ -14,25 +14,39 @@ formBuilder is a libarary for CodeIgniter that will allow you to easily build ou
 
 The first step in building a form is calling the __assign_vars__ function. This function allows us to set the form structure and the optional values that will pre-fill that form.
 
-Both __form_structure__ and __form_values__ will accept a *string* values or an *associative array*. 
+Both __form_structure__ and __form_values__ will accept a `string` value or an `array`. 
 
-If passing a *string* value
+1. If passing a `string` value
 
-* form_structure will assume your *string* is the name of the table you want to reference
-* form_values will assume your *string* is the ID of the row you wish to use to populate the form
+* form_structure will assume your `string` is the name of the table you want to reference
+* form_values will assume your `string` is the ID of the row you wish to use to populate the form
 
-If passing an associative array
+2. If passing an `array`
 
-* form_structure will assume your *associative array* adheres to the following pattern
+* form_structure will assume your `array` adheres to the following pattern
 ```php
 	array(
-		'inputName' => 'inputType',
-		'FirstName' => 'text',
-		'PhoneNumber' => 'text',
-		'EmailAddress' => 'email'
+
+		'inputName' => Array
+			(
+				'type' => 'text',
+				'id' => 'inputName',
+				'size' => '10',
+				'placeholder' => 'some text here',
+				'required' => true
+			),
+
+		'inputName2' => Array
+			(
+				'type' => 'number',
+				'id' => 'inputName2',
+				'size' => '10',
+				'placeholder' => 'some text here',
+				'required' => true
+			)
 	)
 ```
-* form_values will assume your *associative array* adhees to the following pattern
+* form_values will assume your `array` adheres to the following pattern
 ```php
 	array(
 		'inputName' => 'inputValue',
@@ -42,7 +56,7 @@ If passing an associative array
 	)
 ```
 
-__Note:__ If you do not want to prefill the form with form_values, simply pass in a `null` reference.
+* __Note:__ If you do not want to prefill the form with form_values, simply pass in a `null` reference.
 
 Here are a few examples
 
