@@ -21,8 +21,8 @@ The first step in building a form is calling the __assign_vars__ function. This 
 Both __form_structure__ and __form_values__ will accept a *string* values or an *associative array*. 
 
 If passing a *string* value
-	*form_structure will assume your *string* is the name of the table you want to reference
-	*form_values will assume your *string* is the ID of the row you wish to use to populate the form
+	* form_structure will assume your *string* is the name of the table you want to reference
+	* form_values will assume your *string* is the ID of the row you wish to use to populate the form
 
 If passing an *associative array*
 	* form_structure will assume your *associative array* adheres to the following pattern
@@ -34,7 +34,7 @@ If passing an *associative array*
 				'EmailAddress' => 'email'
 			)
 		```
-	*form_values will assume your *associative array* adhees to the following pattern
+	* form_values will assume your *associative array* adhees to the following pattern
 		```php
 			array(
 				'inputName' => 'inputValue',
