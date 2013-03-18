@@ -6,16 +6,11 @@ formBuilder is a libarary for CodeIgniter that will allow you to easily build ou
 ###Getting Started
 
 * Place formBuilder.php into your library folder
-* Load the library in your controller ```$this->load->library('formBuilder');```
+* Load the library in your controller `$this->load->library('formBuilder');`
 
+##Building a Form
 
-##Usage
-
-formBuilder has the ability to create, populate, update, and insert but each function can also be used independently. 
-
-###Building a Form
-
-######assign_vars(form_structure, form_values)
+###assign_vars(form_structure, form_values)
 
 The first step in building a form is calling the __assign_vars__ function. This function allows us to set the form structure and the optional values that will pre-fill that form.
 
@@ -29,24 +24,76 @@ If passing a *string* value
 If passing an associative array
 
 * form_structure will assume your *associative array* adheres to the following pattern
-		```php
-			array(
-				'inputName' => 'inputType',
-				'FirstName' => 'text',
-				'PhoneNumber' => 'text',
-				'EmailAddress' => 'email'
-			)
-		```
+```php
+	array(
+		'inputName' => 'inputType',
+		'FirstName' => 'text',
+		'PhoneNumber' => 'text',
+		'EmailAddress' => 'email'
+	)
+```
 * form_values will assume your *associative array* adhees to the following pattern
-		```php
-			array(
-				'inputName' => 'inputValue',
-				'FirstName' => 'Jake',
-				'PhoneNumber' => '555-786-4456',
-				'EmailAddress' => 'dont@emailme.com'
-			)
-		```
+```php
+	array(
+		'inputName' => 'inputValue',
+		'FirstName' => 'Jake',
+		'PhoneNumber' => '555-786-4456',
+		'EmailAddress' => 'dont@emailme.com'
+	)
+```
+
+__Note:__ If you do not want to prefill the form with form_values, simply pass in a `null` reference.
+
+Here are a few examples
 
 ```php
-$this->formbuilder->assign_vars('policedepartments',array('State' => $data["file_info"]["cubsData"]["Other"]["Loss Location State"],'City' => $data["file_info"]["cubsData"]["Other"]["Loss Location City"]));
-``` 
+//passing in a tablename and id 
+$this->formBuilder->assign_vars('myTableName', '1');
+
+//passing in your own structure and pre-fill values
+$this->formBuilder->assign_vars(
+	//form_structure
+	array(
+		'FirstName' => 'text',
+		'EmailAddress' => 'email'
+		),
+
+	//form_values
+	array(
+		'FirstName' => 'Jake',
+		'EmailAddress' => 'dont@emailme.com',
+		)
+	);	
+
+
+//passing in a tablename with no prefiled values
+$this->formBuilder->assign_vars('myTableName', null);
+
+```
+
+###exclude_form_values(array $excluded_values)
+
+This function accepts an array of values you wish to exclude from your form. Each array value must correspond to the name of a column in your table or in your form_structure array.
+
+
+###include_form_values(array $included_values)
+
+This function is the inverse of __exclude_form_values__. If this function is used, only values listed in the array will be included in the form. Each array value must correspond to the name of a column in your table or in your form_structure array.
+
+###hide_form_values(array $hidden_values)
+
+As you have probably guessed by now, this function accepts an array of values that will become `type=hidden' inputs.  Each array value must correspond to the name of a column in your table or in your form_structure array.
+
+###build_form()
+
+This function will return the html output of your form inputs. __It will not output a `<form>` element or a `<input type=submit>` button.__
+
+Usually we will run this function within the controller and assign the html output to a variable that will be passed to the desired view through the `$data[]` array.
+
+For Example:
+```php
+
+$data['my_form_html'] = $this->formbuilder->build_form();
+
+```
+
