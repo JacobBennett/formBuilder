@@ -110,15 +110,53 @@ $data['my_form_html'] = $this->formbuilder->build_form();
 
 ###Putting It Together
 
-As stated in the previous point, the `<form>` and `<input type=submit>` markup are left to you. In a CodeIgniter view you might put the following.
+__Controller__
+Here is a quick example of what you might place in your controller. This would generate a form, fill it with the values from the record in your database with `id=23`, exclude system generated inputs, and hide the `id` input
 
-```html
+```php
+
+public function viewMyForm() {
+		//new form
+		$this->formbuilder->assign_vars(
+
+			//table name
+			'certrequirements',
+
+			//row id to populate form values
+			'23'
+		);
+
+		//exclude these values
+			$this->formbuilder->exclude_form_values(
+					Array('timestamp', 'lastModifiedBy')
+				);
+
+		//hide these values
+			$this->formbuilder->hide_form_values(
+					Array('id')
+				);
+
+		//build the table 
+			$data['my_form'] = $this->formbuilder->build_form();
+
+		$this->load->view('myView', $data); 
+}
+
+```
+
+__View__
+
+As stated in the `build_form()` description, the `<form>` and `<input type=submit>` markup are left to you. In your CodeIgniter view you might put the following.
+
+__Note:__ the `data-table` property will be used during the save of the form. Further explanation can be found in the __Saving a Form__ secion.
+
+```php
 	<form id='my_form' data-table='myDatabaseTablename'>
 
 		//echo out the html produced by build_form()
 		//that was passed in through the controller
-		
-		<?= $my_form_html ?>
+
+		<?= $my_form ?>
 
 		<input type='submit' id='my_submit_button' />
 	</form>
