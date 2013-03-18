@@ -3,7 +3,7 @@ formBuilder
 
 A library for CodeIgniter that assists in building forms from a database table
 
-**Setup
+###Setup
 
 place formBuilder.php into your library folder.
 
