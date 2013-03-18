@@ -16,16 +16,19 @@ formBuilder has the ability to create, populate, update, and insert but each fun
 ###Building a Form
 
 ######assign_vars(form_structure, form_values)
+
 The first step in building a form is calling the __assign_vars__ function. This function allows us to set the form structure and the optional values that will pre-fill that form.
 
 Both __form_structure__ and __form_values__ will accept a *string* values or an *associative array*. 
 
 If passing a *string* value
-	* form_structure will assume your *string* is the name of the table you want to reference
-	* form_values will assume your *string* is the ID of the row you wish to use to populate the form
 
-If passing an *associative array*
-	* form_structure will assume your *associative array* adheres to the following pattern
+* form_structure will assume your *string* is the name of the table you want to reference
+* form_values will assume your *string* is the ID of the row you wish to use to populate the form
+
+If passing an associative array
+
+* form_structure will assume your *associative array* adheres to the following pattern
 		```php
 			array(
 				'inputName' => 'inputType',
@@ -34,7 +37,7 @@ If passing an *associative array*
 				'EmailAddress' => 'email'
 			)
 		```
-	* form_values will assume your *associative array* adhees to the following pattern
+* form_values will assume your *associative array* adhees to the following pattern
 		```php
 			array(
 				'inputName' => 'inputValue',
@@ -43,9 +46,6 @@ If passing an *associative array*
 				'EmailAddress' => 'dont@emailme.com'
 			)
 		```
-
-* Pass in the name of the table you wish to reference (string)
-* Pass in an array of key value pairs where the key is the input name and the value is the type of field.
 
 ```php
 $this->formbuilder->assign_vars('policedepartments',array('State' => $data["file_info"]["cubsData"]["Other"]["Loss Location State"],'City' => $data["file_info"]["cubsData"]["Other"]["Loss Location City"]));
