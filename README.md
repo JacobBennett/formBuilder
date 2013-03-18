@@ -14,16 +14,16 @@ formBuilder is a libarary for CodeIgniter that will allow you to easily build ou
 
 The first step in building a form is calling the __assign_vars__ function. This function allows us to set the form structure and the optional values that will pre-fill that form.
 
-Both __form_structure__ and __form_values__ will accept a `string` value or an `array`. 
+Both __form_structure__ and __form_values__ will accept a `STRING` value or an `ARRAY`. 
 
-1. If passing a `string` value
+__If passing a `STRING` value__
 
-* form_structure will assume your `string` is the name of the table you want to reference
-* form_values will assume your `string` is the ID of the row you wish to use to populate the form
+* form_structure will assume your `STRING` is the name of the table you want to reference
+* form_values will assume your `STRING` is the ID of the row you wish to use to populate the form
 
-2. If passing an `array`
+__If passing an `ARRAY`__
 
-* form_structure will assume your `array` adheres to the following pattern
+* form_structure will assume your `ARRAY` adheres to the following pattern
 ```php
 	array(
 
@@ -46,17 +46,14 @@ Both __form_structure__ and __form_values__ will accept a `string` value or an `
 			)
 	)
 ```
-* form_values will assume your `array` adheres to the following pattern
+* form_values will assume your `ARRAY` adheres to the following pattern
 ```php
 	array(
-		'inputName' => 'inputValue',
-		'FirstName' => 'Jake',
-		'PhoneNumber' => '555-786-4456',
-		'EmailAddress' => 'dont@emailme.com'
+		'inputName' => 'inputValue'
 	)
 ```
 
-* __Note:__ If you do not want to prefill the form with form_values, simply pass in a `null` reference.
+* __Note:__ If you do not want to prefill the form with form_values, simply pass in a `NULL` reference.
 
 Here are a few examples
 
@@ -111,3 +108,46 @@ $data['my_form_html'] = $this->formbuilder->build_form();
 
 ```
 
+###Putting It Together
+
+As stated in the previous point, the `<form>` and `<input type=submit>` markup are left to you. In a CodeIgniter view you might put the following.
+
+```html
+	<form id='my_form' data-table='myDatabaseTablename'>
+
+		//echo out the html produced by build_form()
+		//that was passed in through the controller
+		
+		<?= $my_form_html ?>
+
+		<input type='submit' id='my_submit_button' />
+	</form>
+
+```
+
+##Saving a Form
+
+__Note:__ We will most often use AJAX to handle the saving of our forms. We find it to be a more native experience for users. The following implementation uses Jquery and AJAX to send our call from our page to our controller.
+
+###save_form_values(string $tablename, array $post_vars, string $id)
+
+Place this function within a new controller method.
+
+```php
+public function save_table($tablename = '', $id = 'false') {
+	if ($post_vars = $this->input->post(NULL, TRUE)) {
+
+		//will print true or false
+		print_r(json_encode($this->formbuilder->save_form_values($tablename, $post_vars, $id)));
+	}
+}
+```
+
+
+
+
+
+
+
+
+When saving a form it is important to note that the keys of your `$_POST` vars must be names of columns in your table. This will only be a concern if you set the `$form_structure` value of `build_form()` using an `ARRAY` as oppossed to passing in the `STRING` value of the table you wish to target.
